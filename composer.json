@@ -1,0 +1,15 @@
+{
+    "name": "its-mieger/link-css-as-scss",
+    "description": "Links all css files in a specified directory as .scss files for css import using SASS",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Christopher Mieger",
+            "email": "christopher.mieger@its-mieger.de"
+        }
+    ],
+	"bin": [
+		"bin/linkCssAssScss"
+	],
+    "require": {}
+}

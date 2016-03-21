@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+if (PHP_SAPI !== 'cli') {
+    echo 'Warning: linkCssAsScss should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
+}
+
+	if (!empty($argv[1]))
+		$dir = $argv[1];
+	else
+		$dir = 'vendor';
+
+
+	$Directory = new RecursiveDirectoryIterator($dir);
+	$Iterator = new RecursiveIteratorIterator($Directory);
+	$Regex = new RegexIterator($Iterator, '/^.+(?<!\.min)\.css/i', RecursiveRegexIterator::GET_MATCH);
+
+
+	foreach($Regex as $curr) {
+		$fn = $curr[0];
+
+		if (!file_exists(preg_replace('/\.css$/', '.scss', $fn))) {
+			echo "linking \"" . $fn . "\" as .scss";
+			symlink('./' . basename($fn), dirname($fn) . '/' . preg_replace('/\.css$/', '.scss', basename($fn)));
+		}
+
+	}
+
